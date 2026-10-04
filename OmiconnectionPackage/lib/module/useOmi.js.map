@@ -1,0 +1,1 @@
+{"version":3,"names":["useContext","OmiContext","useOmi","omi","Error"],"sourceRoot":"../../src","sources":["useOmi.ts"],"mappings":"AAAA,SAASA,UAAU,QAAQ,OAAO;AAClC,SAASC,UAAU,QAAQ,eAAe;AAE1C,OAAO,SAASC,MAAMA,CAAA,EAAG;EACvB,MAAMC,GAAG,GAAGH,UAAU,CAACC,UAAU,CAAC;EAElC,IAAI,CAACE,GAAG,EAAE;IACR,MAAM,IAAIC,KAAK,CAAC,2CAA2C,CAAC;EAC9D;EAEA,OAAOD,GAAG;AACZ","ignoreList":[]}
