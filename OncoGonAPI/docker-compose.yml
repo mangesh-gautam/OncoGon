@@ -1,0 +1,44 @@
+# OncoGon API microservices. Start OncoGonDB first: it creates the `oncogon-net` network.
+name: oncogon-api
+
+services:
+  gateway:
+    build: ./services/gateway
+    container_name: oncogon-gateway
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      AUTH_SERVICE_URL: http://auth-service:8001
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+      AUTH_RATE_LIMIT_PER_MINUTE: ${AUTH_RATE_LIMIT_PER_MINUTE:-20}
+    ports:
+      - "${GATEWAY_PORT:-8000}:8000"
+    depends_on:
+      auth-service:
+        condition: service_healthy
+    networks: [oncogon-net]
+
+  auth-service:
+    build: ./services/auth
+    container_name: oncogon-auth
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      DATABASE_URL: postgresql+asyncpg://${AUTH_DB_USER}:${AUTH_DB_PASSWORD}@${DB_HOST:-oncogon-postgres}:5432/${POSTGRES_DB:-oncogon}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      ACCESS_TOKEN_TTL_MINUTES: ${ACCESS_TOKEN_TTL_MINUTES:-15}
+      REFRESH_TOKEN_TTL_DAYS: ${REFRESH_TOKEN_TTL_DAYS:-30}
+    # Internal only — reachable through the gateway.
+    expose: ["8001"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+    networks: [oncogon-net]
+
+networks:
+  oncogon-net:
+    external: true
+    name: oncogon-net

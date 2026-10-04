@@ -1,0 +1,33 @@
+# OncoGon PostgreSQL — shared database for the OncoGonAPI microservices.
+# Creates the `oncogon-net` network that the API services join.
+name: oncogon-db
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: oncogon-postgres
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      # 5432 is commonly taken on dev machines; expose on 5433 by default.
+      - "${POSTGRES_HOST_PORT:-5433}:5432"
+    volumes:
+      - oncogon-pgdata:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - oncogon-net
+
+volumes:
+  oncogon-pgdata:
+    name: oncogon-pgdata
+
+networks:
+  oncogon-net:
+    name: oncogon-net
