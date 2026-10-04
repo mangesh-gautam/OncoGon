@@ -9,12 +9,15 @@ services:
     environment:
       ENVIRONMENT: ${ENVIRONMENT:-development}
       AUTH_SERVICE_URL: http://auth-service:8001
+      RESEARCH_SERVICE_URL: http://research-service:8002
       CORS_ORIGINS: ${CORS_ORIGINS:-*}
       AUTH_RATE_LIMIT_PER_MINUTE: ${AUTH_RATE_LIMIT_PER_MINUTE:-20}
     ports:
       - "${GATEWAY_PORT:-8000}:8000"
     depends_on:
       auth-service:
+        condition: service_healthy
+      research-service:
         condition: service_healthy
     networks: [oncogon-net]
 
@@ -36,6 +39,24 @@ services:
       timeout: 3s
       retries: 12
       start_period: 10s
+    networks: [oncogon-net]
+
+  # Serves mock research data (app/mock/mock_data.json) until a real data layer replaces it.
+  research-service:
+    build: ./services/research
+    container_name: oncogon-research
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+    # Internal only — reachable through the gateway.
+    expose: ["8002"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
     networks: [oncogon-net]
 
 networks:

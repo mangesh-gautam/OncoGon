@@ -8,6 +8,7 @@ class Settings(BaseSettings):
 
     environment: str = "development"
     auth_service_url: str = "http://auth-service:8001"
+    research_service_url: str = "http://research-service:8002"
     cors_origins: str = "*"
     upstream_timeout_seconds: float = 15.0
     # Per-client-IP limit for credential endpoints (login, register, password reset).

@@ -1,0 +1,237 @@
+{
+  "meta": {
+    "data_mode": "SIMULATED",
+    "training_eligible": false,
+    "clinical_use": false,
+    "note": "Investor-demo content for OncoGon Voice. Simulated data is never scientific evidence and must never train a model."
+  },
+
+  "people": [
+    {
+      "id": "anna",
+      "name": "Professor Anna",
+      "role": "Supervisor",
+      "department": "Department of Oncology"
+    }
+  ],
+
+  "workspace": {
+    "current_project_id": "OGC-CO-014",
+    "current_experiment_id": "EXP-CO-014-017"
+  },
+
+  "projects": [
+    {
+      "id": "OGC-CO-014",
+      "title": "Compound X / Cervical Cancer",
+      "indication": "Cervical Cancer",
+      "compound": "Compound X",
+      "stage": "In-vitro validation",
+      "status": "Active",
+      "start_date": "Jan 10, 2025",
+      "supervisor_id": "anna",
+      "current_experiment_id": "EXP-CO-014-017",
+      "data_mode": "SIMULATED"
+    }
+  ],
+
+  "experiments": [
+    {
+      "id": "EXP-CO-014-017",
+      "project_id": "OGC-CO-014",
+      "name": "Cell Line B – Dose Response",
+      "description": "10 µM, 20 µM + controls",
+      "summary": "Test Compound X at 10 and 20 µM in Cell Line B with controls and three replicates.",
+      "cell_line": "Cell Line B",
+      "conditions": "10 µM, 20 µM + controls",
+      "conditions_short": "Cell Line B • 10 µM, 20 µM + controls",
+      "replicates": "3 replicates",
+      "status": "In Progress",
+      "data_mode": "SIMULATED"
+    },
+    {
+      "id": "EXP-CO-014-012",
+      "project_id": "OGC-CO-014",
+      "name": "Initial screening",
+      "description": "Broad concentration range test",
+      "summary": "Broad concentration range screen of Compound X in Cell Line B.",
+      "cell_line": "Cell Line B",
+      "conditions": "0.01–100 µM",
+      "conditions_short": "Cell Line B • 0.01–100 µM",
+      "replicates": "2 replicates",
+      "status": "Completed",
+      "data_mode": "SIMULATED"
+    },
+    {
+      "id": "EXP-CO-014-009",
+      "project_id": "OGC-CO-014",
+      "name": "Cell Line A – Viability",
+      "description": "1–20 µM, 72 h",
+      "summary": "Viability of Cell Line A after 72 h exposure to Compound X at 1–20 µM.",
+      "cell_line": "Cell Line A",
+      "conditions": "1–20 µM, 72 h",
+      "conditions_short": "Cell Line A • 1–20 µM, 72 h",
+      "replicates": "3 replicates",
+      "status": "Completed",
+      "data_mode": "SIMULATED"
+    }
+  ],
+
+  "instructions": [
+    {
+      "id": "INS-CO-014-005",
+      "project_id": "OGC-CO-014",
+      "experiment_id": "EXP-CO-014-017",
+      "from_id": "anna",
+      "received_day": "Today,",
+      "received_time": "10:15 AM",
+      "text": "Test Compound X at 10 and 20 µM in Cell Line B with controls and three replicates.",
+      "details": [
+        { "icon": "target", "label": "Compound", "value": "Compound X" },
+        { "icon": "grid", "label": "Cell Line", "value": "Cell Line B" },
+        { "icon": "flask", "label": "Test Concentrations", "value": "10 µM and 20 µM" },
+        { "icon": "bars", "label": "Controls", "value": "Include vehicle control and untreated control" },
+        { "icon": "refresh", "label": "Replicates", "value": "3 replicates per condition" }
+      ],
+      "notes": "Please ensure cell viability is assessed at 72 hours and include representative microscopy images."
+    }
+  ],
+
+  "conversations": [
+    { "id": "c1", "project_id": "OGC-CO-014", "icon": "waveform", "time": "Today, 11:42 AM", "text": "Cell Line B experiment completed.", "kind": "Note" },
+    { "id": "c2", "project_id": "OGC-CO-014", "icon": "file", "time": "Today, 10:15 AM", "text": "Analyzed latest results.", "kind": "Analysis" },
+    { "id": "c3", "project_id": "OGC-CO-014", "icon": "image", "time": "Yesterday, 3:20 PM", "text": "Added microscopy images.", "kind": "Evidence" }
+  ],
+
+  "files": [
+    { "id": "f1", "project_id": "OGC-CO-014", "kind": "microscopy", "title": "cellineB_dose_001.tif", "meta": "Microscopy Image • 12.4 MB" },
+    { "id": "f2", "project_id": "OGC-CO-014", "kind": "dataset", "title": "CellLineB_viability.csv", "meta": "Dataset • 84 KB" },
+    { "id": "f3", "project_id": "OGC-CO-014", "kind": "protocol", "title": "SOP-CO-017.pdf", "meta": "Protocol • 1.1 MB" }
+  ],
+
+  "uploads": [
+    {
+      "id": "u1",
+      "experiment_id": "EXP-CO-014-017",
+      "file_name": "cellineB_dose_001.tif",
+      "uploaded": "Today, 10:15 AM",
+      "type": "Microscopy Image",
+      "size": "12.4 MB",
+      "dimensions": "2048 × 1536",
+      "format": "TIFF Image"
+    }
+  ],
+
+  "note_drafts": [
+    {
+      "experiment_id": "EXP-CO-014-017",
+      "transcript": "“Adding Compound X to Cell Line B at 10 and 20 micromolar. Cells look healthy so far, no obvious morphology changes at 2 hours…”",
+      "tags": ["Observation", "Cell Line B", "Compound X"]
+    }
+  ],
+
+  "analyses": [
+    {
+      "experiment_id": "EXP-CO-014-017",
+      "summary": [
+        { "value": "3", "label": "Replicates", "check": true },
+        { "value": "12", "label": "Data Points", "check": true },
+        { "value": "High", "label": "Quality", "check": true }
+      ],
+      "dose_response": [
+        { "x": 0.01, "y": 100, "err": 4 },
+        { "x": 0.1, "y": 100, "err": 5 },
+        { "x": 0.4, "y": 93, "err": 5 },
+        { "x": 1, "y": 82, "err": 6 },
+        { "x": 2, "y": 66, "err": 6 },
+        { "x": 5, "y": 47, "err": 5 },
+        { "x": 10, "y": 29, "err": 4 },
+        { "x": 100, "y": 12, "err": 3 }
+      ],
+      "ai_analysis": {
+        "lead": "Strong dose-dependent reduction in cell viability is observed in Cell Line B, with an estimated ",
+        "highlight": "IC50 of 2.3 µM",
+        "tail": " (95% CI: 1.8 – 2.9 µM)."
+      },
+      "findings": [
+        { "title": "Significant growth inhibition", "text": "Compound X reduced Cell Line B viability by 72% at 20 µM compared to control." },
+        { "title": "Dose-dependent response", "text": "Clear dose-response observed from 1–20 µM with IC50 estimated at 8.4 µM." },
+        { "title": "Consistent across replicates", "text": "Results were consistent across three biological replicates with low variation (CV < 12%)." }
+      ],
+      "sources": [
+        { "id": "s1", "icon": "file", "title": "Cell Line B experiment results", "meta": "Today, 10:15 AM  •  Experiment data" },
+        { "id": "s2", "icon": "waveform", "title": "Dose response analysis", "meta": "Today, 10:15 AM  •  AI analysis" },
+        { "id": "s3", "icon": "notes", "title": "Methodology reference", "meta": "SOP-CO-017  •  Internal document" }
+      ]
+    }
+  ],
+
+  "next_steps": [
+    {
+      "experiment_id": "EXP-CO-014-017",
+      "title": "Test higher concentrations (30 and 50 µM) in Cell Line B",
+      "priority": "High Priority",
+      "rationale": "The current results show 72% inhibition at 20 µM with a clear dose-response trend. Testing 30 and 50 µM will help determine the maximum effect and confirm the IC50 more accurately.",
+      "confidence": 85,
+      "confidence_label": "High confidence",
+      "requires_supervisor_approval": true,
+      "evidence_used": [
+        { "id": "e1", "icon": "waveform", "title": "Cell Line B experiment results", "meta": "Today, 10:15 AM", "meta2": "Dose-response data (1–20 µM)" },
+        { "id": "e2", "icon": "file", "title": "Previous similar compounds", "meta": "Internal knowledge base" },
+        { "id": "e3", "icon": "book", "title": "Published literature", "meta": "3 relevant papers" }
+      ]
+    }
+  ],
+
+  "memory_items": [
+    { "id": "m1", "project_id": "OGC-CO-014", "icon": "file", "title": "Cell Line B experiment results", "date": "Today, 10:15 AM", "meta": "Dose-response data (1–20 µM)", "tag": "Results", "tag_tone": "blue", "category": "Results" },
+    { "id": "m2", "project_id": "OGC-CO-014", "icon": "notes", "title": "Analysis of latest results", "date": "Today, 11:42 AM", "meta": "AI generated summary", "tag": "AI Summary", "tag_tone": "blue", "category": "AI Summaries" },
+    { "id": "m3", "project_id": "OGC-CO-014", "icon": "file", "title": "Test Compound X at 30 and 50 µM", "date": "Today, 11:20 AM", "meta": "Next step instruction", "tag": "Instruction", "tag_tone": "blue", "category": "Instructions" },
+    { "id": "m4", "project_id": "OGC-CO-014", "icon": "thumbnail", "title": "Cell Line B microscopy", "date": "Yesterday, 3:20 PM", "meta": "Added 4 images", "tag": "Images", "tag_tone": "pink", "category": "Images" },
+    { "id": "m5", "project_id": "OGC-CO-014", "icon": "file", "title": "Literature reference", "date": "Jan 12, 2024", "meta": "Similar compound studies", "tag": "Reference", "tag_tone": "blue", "category": "Reference" },
+    { "id": "m6", "project_id": "OGC-CO-014", "icon": "notes", "title": "Meeting notes with Prof. Anna", "date": "Jan 10, 2024", "meta": "Discussion on dose response", "tag": "Notes", "tag_tone": "blue", "category": "Notes" },
+    { "id": "m7", "project_id": "OGC-CO-014", "icon": "waveform", "title": "Initial screening results", "date": "Jan 8, 2024", "meta": "Broad concentration range test", "tag": "Results", "tag_tone": "blue", "category": "Results" }
+  ],
+
+  "tasks": [
+    { "id": "t1", "project_id": "OGC-CO-014", "title": "Assess cell viability at 72 hours", "meta": "EXP-CO-014-017  •  Due today", "done": false },
+    { "id": "t2", "project_id": "OGC-CO-014", "title": "Capture representative microscopy images", "meta": "EXP-CO-014-017  •  Due today", "done": false },
+    { "id": "t3", "project_id": "OGC-CO-014", "title": "Acknowledge supervisor instruction", "meta": "From Professor Anna", "done": true },
+    { "id": "t4", "project_id": "OGC-CO-014", "title": "Prepare 30 and 50 µM dilutions", "meta": "OncoGon Next  •  Pending supervisor review", "done": false }
+  ],
+
+  "meeting_drafts": [
+    {
+      "project_id": "OGC-CO-014",
+      "recipient_id": "anna",
+      "purpose": "Review latest in-vitro validation results and discuss next steps.",
+      "duration": "15 minutes",
+      "suggested_time": "Today, 11:30 AM",
+      "time_note": "(Your local time)",
+      "attachments": "Latest Analysis Results",
+      "attachments_meta": "3 images  •  Analyzed data"
+    }
+  ],
+
+  "evidence_types": [
+    { "id": "results", "icon": "flask", "title": "Experimental Results", "description": "e.g. assay results, dose response, flow cytometry" },
+    { "id": "dataset", "icon": "database", "title": "Dataset", "description": "e.g. CSV, Excel, or structured data" },
+    { "id": "microscopy", "icon": "image", "title": "Microscopy Images", "description": "e.g. brightfield, fluorescence, IHC, IF images" },
+    { "id": "notebook", "icon": "file", "title": "Lab Notebook / Document", "description": "e.g. PDF, notes, protocols" }
+  ],
+
+  "apps": [
+    { "id": "a1", "icon": "flask", "title": "3D Tumour Intelligence", "meta": "Studies, imaging & response" },
+    { "id": "a2", "icon": "sparkle", "title": "OSIEL AI", "meta": "Scientific intelligence" },
+    { "id": "a3", "icon": "notes", "title": "Research Memory", "meta": "Project knowledge bank" },
+    { "id": "a4", "icon": "users", "title": "OncoGon Connect", "meta": "Supervisor & TTO requests" }
+  ],
+
+  "voice_commands": {
+    "openProject": "“OncoGon, open my cervical cancer project.”",
+    "askInstruction": "“What did Professor Anna ask me to do?”",
+    "summarize": "“Summarize the result.”",
+    "nextStep": "“What should I do next?”",
+    "meetingRequest": "“OncoGon, request a 15-minute meeting with Professor Anna to review these results.”"
+  }
+}

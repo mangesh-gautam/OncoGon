@@ -17,7 +17,10 @@ log = logging.getLogger("oncogon.gateway")
 settings = get_settings()
 
 # Service registry: public prefix -> internal base URL and path prefix.
-SERVICES = {"auth": (settings.auth_service_url, "/auth")}
+SERVICES = {
+    "auth": (settings.auth_service_url, "/auth"),
+    "research": (settings.research_service_url, "/research"),
+}
 RATE_LIMITED_PATHS = {"login", "register", "password/forgot", "password/verify", "password/reset"}
 HOP_BY_HOP = {"connection", "keep-alive", "transfer-encoding", "te", "upgrade", "proxy-authorization", "host", "content-length"}
 
