@@ -126,7 +126,7 @@ export class OmiConnection {
     try {
       const device = (await this.manager.connectToDevice(deviceId, { requestMTU: 512 })) as OmiBleDevice;
       await device.discoverAllServicesAndCharacteristics();
-      await requestHighConnectionPriority(device);
+      await requestHighConnectionPriority(device, this.logger);
       this.device = device;
       this.logger.info("[Omi] Connected; services and characteristics discovered:", toOmiDevice(device));
       this.disconnectSubscription = device.onDisconnected((error) => {
@@ -190,6 +190,9 @@ export class OmiConnection {
   async startAudioStream(onAudio: (data: Uint8Array) => void, includePacketHeader = false): Promise<() => void> {
     this.stopAudioStream();
     const characteristic = await this.findCharacteristic(OMI_SERVICE_UUID, OMI_AUDIO_DATA_CHARACTERISTIC_UUID);
+    // Again here: the necklace sends its own connection-parameter request after connecting, which
+    // can replace the fast interval asked for in connect() and starve the audio stream.
+    if (this.device) await requestHighConnectionPriority(this.device, this.logger);
     this.logger.info("[Omi] Starting audio stream", { includePacketHeader });
     this.audioSubscription = characteristic.monitor((error, update) => {
       if (error) {
@@ -291,12 +294,22 @@ function asError(cause: unknown): Error {
   return cause instanceof Error ? cause : new Error(String(cause));
 }
 
-async function requestHighConnectionPriority(device: Device): Promise<void> {
-  const prioritizedDevice = device as Device & { requestConnectionPriority?: (priority: "high") => Promise<Device> };
+// react-native-ble-plx `ConnectionPriority.High` (the API takes the numeric value, not a string).
+const BLE_CONNECTION_PRIORITY_HIGH = 1;
+
+/**
+ * Android: ask for a short BLE connection interval. With the default (balanced) interval the
+ * phone accepts only ~13 audio notifications per second, the necklace's buffer overflows and
+ * about three quarters of the Opus frames are dropped before they are sent.
+ */
+async function requestHighConnectionPriority(device: Device, logger: OmiLogger): Promise<void> {
+  const prioritizedDevice = device as Device & { requestConnectionPriority?: (priority: number) => Promise<Device> };
   if (!prioritizedDevice.requestConnectionPriority) return;
   try {
-    await prioritizedDevice.requestConnectionPriority("high");
-  } catch {
-    // Connection priority is an Android optimization; it is not required for compatibility.
+    await prioritizedDevice.requestConnectionPriority(BLE_CONNECTION_PRIORITY_HIGH);
+    logger.info("[Omi] High BLE connection priority set");
+  } catch (cause) {
+    // Not supported on iOS (it manages the interval itself); on Android audio may drop frames.
+    logger.info("[Omi] Connection priority not changed:", asError(cause).message);
   }
 }

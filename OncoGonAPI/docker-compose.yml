@@ -9,7 +9,12 @@ services:
     environment:
       ENVIRONMENT: ${ENVIRONMENT:-development}
       AUTH_SERVICE_URL: http://auth-service:8001
-      RESEARCH_SERVICE_URL: http://research-service:8002
+      # Research data. Default: the mock service below. With OncoGonResearchAPI (PostgreSQL-backed,
+      # read + write) running on oncogon-net: RESEARCH_SERVICE_URL=http://oncogon-research-api:8002 in .env
+      RESEARCH_SERVICE_URL: ${RESEARCH_SERVICE_URL:-http://research-service:8002}
+      # Voice backend (oncogon-tts-sst, started from that repo on oncogon-net). For a voice API running
+      # natively on your machine instead: VOICE_SERVICE_URL=http://host.docker.internal:8010 in .env
+      VOICE_SERVICE_URL: ${VOICE_SERVICE_URL:-http://oncogon-voice-api:8000}
       CORS_ORIGINS: ${CORS_ORIGINS:-*}
       AUTH_RATE_LIMIT_PER_MINUTE: ${AUTH_RATE_LIMIT_PER_MINUTE:-20}
     ports:
